@@ -1,9 +1,9 @@
 import express from 'express';
-import productController from './controllers/products.controller';
+import productRouter from './routes';
 
 const app = express();
 
 app.use(express.json());
-app.post('/products', productController.create);
+app.use('/products', productRouter);
 
 export default app;
