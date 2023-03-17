@@ -1,6 +1,6 @@
 import express from 'express';
 import productController from '../controllers/products.controller';
-import productValidation from '../middlewares/validationProducts';
+import productValidation from '../middlewares/productsValidation';
 
 const router = express.Router();
 const { nameVerify, amountVerify } = productValidation;
