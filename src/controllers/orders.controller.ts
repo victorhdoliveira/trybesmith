@@ -6,6 +6,13 @@ const getAll = async (req: Request, res: Response) => {
   res.status(200).json(orders);
 };
 
-const orderController = { getAll };
+const newOrder = async (req: Request, res: Response) => {
+  const { body: { productsIds } } = req;
+  const { body: { user: { id } } } = req;
+  const order = await orderService.newOrder(id, productsIds);
+  res.status(201).json(order);
+};
+
+const orderController = { getAll, newOrder };
 
 export default orderController;

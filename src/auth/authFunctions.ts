@@ -8,6 +8,9 @@ const JWT_CONFIG: SignOptions = {
   expiresIn: '7d',
 };
 
-const createToken = (payload: IUser) => jwt.sign(payload, JWT_SECRET, JWT_CONFIG);
+const createToken = async (payload: IUser) => jwt.sign(payload, JWT_SECRET, JWT_CONFIG);
+const verifyToken = (token: string) => jwt.verify(token, JWT_SECRET);
 
-export default createToken;
+const auth = { createToken, verifyToken };
+
+export default auth;

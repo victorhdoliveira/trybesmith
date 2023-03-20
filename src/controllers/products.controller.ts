@@ -2,8 +2,8 @@ import { Request, Response } from 'express';
 import productService from '../services/products.service';
 
 const create = async (req: Request, res: Response) => {
-  const newProduct = req.body;
-  const productCreated = await productService.createProduct(newProduct);
+  const { body } = req;
+  const productCreated = await productService.createProduct(body);
   res.status(201).json(productCreated);
 };
 

@@ -1,4 +1,4 @@
-import createToken from '../auth/authFunctions';
+import auth from '../auth/authFunctions';
 import { ILogin } from '../interfaces/login.interface';
 import userModel from '../models/users.model';
 
@@ -7,6 +7,7 @@ const login = async (loginData: ILogin) => {
   const getLoginData = await userModel.getByUsername(username);
   if (!getLoginData || loginData.password !== getLoginData.password) return null;
   const { password, ...remaining } = getLoginData;
+  const { createToken } = auth;
   return createToken(remaining);
 };
 

@@ -1,4 +1,5 @@
 import { ResultSetHeader, RowDataPacket } from 'mysql2';
+import { IOrder } from '../interfaces/orders.interface';
 import { INewProduct, IProduct } from '../interfaces/products.interface';
 import connection from './connection';
 
@@ -12,12 +13,20 @@ const insertNewProduct = async (product: INewProduct): Promise<IProduct> => {
 };
 
 const getAllProducts = async ():Promise<IProduct[]> => {
-  const [rows] = await connection.execute<IProduct[] & RowDataPacket[]>(
+  const [result] = await connection.execute<IProduct[] & RowDataPacket[]>(
     'SELECT * FROM Trybesmith.products',
   );
-  return rows;
+  return result;
 };
 
-const productModel = { insertNewProduct, getAllProducts };
+const updateProduct = async (orderId: number, productId: number) => {
+  const [result] = await connection.execute<IOrder[] & RowDataPacket[]>(
+    'UPDATE Trybesmith.products SET order_id = ? WHERE id = ?',
+    [orderId, productId],
+  );
+  return result;
+};
+
+const productModel = { insertNewProduct, getAllProducts, updateProduct };
 
 export default productModel;

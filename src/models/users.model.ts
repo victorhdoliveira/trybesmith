@@ -12,13 +12,21 @@ const insertNewUser = async (user: INewUser): Promise<IUser> => {
 };
 
 const getByUsername = async (username: string): Promise<IUser> => {
-  const [[row]] = await connection.execute<IUser[] & RowDataPacket[]>(
+  const [[result]] = await connection.execute<IUser[] & RowDataPacket[]>(
     'SELECT * FROM Trybesmith.users WHERE username = ?',
     [username],
   );
-  return row;
+  return result;
 };
 
-const userModel = { insertNewUser, getByUsername };
+const getByUserId = async (userId: number): Promise<IUser> => {
+  const [[result]] = await connection.execute<IUser[] & RowDataPacket[]>(
+    'SELECT * FROM Trybesmith.users WHERE id = ?',
+    [userId],
+  );
+  return result;
+};
+
+const userModel = { insertNewUser, getByUsername, getByUserId };
 
 export default userModel;
